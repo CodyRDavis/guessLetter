@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guess the Letter</title>
+</head>
+<body>
+
+    <script type="text/javascript">
+        var wins = 0;
+        var lose = 0;
+        var lives = 9;
+        var userGuess = ""
+
+        var answerKey = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+
+        console.log("answerKey.length answer: " + answerKey[answerKey.length]);
+
+        document.write("Please guess an Letter....\n");
+
+        while(lives>0){
+
+            var roundAnswer = Math.floor(Math.random() * answerKey.length);
+            console.log("Random number this round: " + roundAnswer);
+            console.log("Letter to quess this round: " + answerKey[roundAnswer])
+
+            userGuess = prompt("Lives remaining: "+lives+ "\n" + 
+                                "wins: "+wins+"\n"+
+                                "loses: "+lose+"\n" +
+                                "Please guess a Letter....").toUpperCase().trim();
+            
+            if (userGuess === answerKey[roundAnswer]){
+                alert("You Win!");
+                wins++;
+            } else {
+                alert("You lose!");
+                lose++;
+                lives--;
+            }
+            
+        } // back to the top of the while loop
+
+    </script>
+    
+</body>
+</html>
