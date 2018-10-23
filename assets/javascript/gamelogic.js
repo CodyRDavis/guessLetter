@@ -1,35 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <title>Guess the Letter</title>
-
-
-</head>
-<body>
-
-    <h1>Welcome to GUESS THAT LETTER</h1>
-    <h3> It's a simple game folks, just try and guess which letter of the alphabet the computer thought of!</h3>
-    <hr>
-    <div>
-        <h4 id="livesRemaining">Lives: </h4>
-        <h4 id="userScore">Wins: </h4>
-        <h4 id="userLoses">Loses: </h4>
-    </div>
-    <form>
-        <input id="userGuess" type="text">
-    </form>
-
-    <h1 onclick="takeGuess(this)">Click to Guess</h1>
-    <h1 id="gameWarning" class="rules-reminder">Your Guess wasnt a letter A-Z!</h1>
-
-    <script type="text/javascript" src="assets/javascript/gamelogic.js"></script>
-    <!-- <script type="text/javascript">
         //initilizing game variables
         var wins = 0;
         var loses = 0;
@@ -63,23 +32,24 @@
             if (lives>0) {
                 
                 if (answerKey.includes(userGuess)) { //verifies and checks to see if users' guess is valid.
+
+                    document.getElementById("gameWarning").style.visibility = "hidden";
+
                     if  (userGuess===answerKey[answer]){
+
                         wins++;
                         newAnswer();
                     } else {
+
                         loses++;
                         lives--;
                     } 
                 } else {
-                    document.getElementById("userGuess").value = "Your inpute was invalid. submit single letter A-Z";
-                }
 
+                    document.getElementById("gameWarning").style.visibility = "visible";
+                }
                 
             updateBoard();
             }
 
         } 
-    </script> -->
-    
-</body>
-</html>
