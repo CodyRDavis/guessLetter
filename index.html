@@ -17,14 +17,12 @@
     <h3> It's a simple game folks, just try and guess which letter of the alphabet the computer thought of!</h3>
     <hr>
     <div>
-        <h4 id="livesRemaining">Lives: </h4>
-        <h4 id="userScore">Wins: </h4>
-        <h4 id="userLoses">Loses: </h4>
+        <h4>Lives: <span id="livesRemaining"></span></h4>
+        <h4>Wins: <span id="userScore"></span>
+        <h4>Loses: <span id="userLoses"></span></h4>
+        <h4>Guess' so far: <span id="guessHistory"></span></h4>
     </div>
-    <input id="userGuess" type="text">
-
-    <h1 onclick="takeGuess(this)">Click to Guess</h1>
-    <h1 id="gameWarning" class="rules-reminder">Your Guess wasnt a letter A-Z!</h1>
+    <h1 class="rules-reminder"><span id="gameWarning"></span></h1>
 
     <script type="text/javascript" src="assets/javascript/gamelogic.js"></script>
     

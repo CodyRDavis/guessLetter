@@ -1,69 +1,74 @@
+var wins = 0;
+var loses = 0;
+var lives = 9;
+var answerKey = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+var wrongGuess= [];
+var answer = "0";
 
-        //initilizing game variables
-        var wins = 0;
-        var loses = 0;
-        var lives = 9;
-        var userGuess = "";
-        var answerKey = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-        var wrongGuess= [];
-        var answer = "";
+var ruleReminder = document.getElementById("gameWarning");
 
-        newAnswer();
-        updateBoard();
 
-        function newAnswer() { //gets new random number for the key, clears user input, clears guess histoy.
+//code that runs on load
+updateBoard();
+newAnswer();
 
-            answer = Math.floor(Math.random() * answerKey.length);
-            console.log (answerKey[answer]);
-            userGuess = document.getElementById("userGuess").value
-            wrongGuess = [];
-        }
+//waits for user to input a guess
+document.onkeydown = function(event) {
 
-        function updateBoard() { //changes score, lives, and loses
+  ruleReminder.textContent = "";
+  var userGuess = event.key.toUpperCase();
+  takeGuess(userGuess);
+}
 
-            document.getElementById("livesRemaining").innerHTML = "Lives: "+lives;
-            document.getElementById("userScore").innerHTML = "Wins: "+wins;
-            document.getElementById("userLoses").innerHTML= "Loses: "+loses;
+//logic and evaluations for comparing users guess.
+function takeGuess(guess) {
 
-        }
+  if (lives <= 0 ) { //user doesnt have any lives
 
-        function takeGuess() {
+    ruleReminder.textContent = "You are out of lives...";
 
-            userGuess = document.getElementById("userGuess").value.toUpperCase().trim();
+  } else if (!answerKey.includes(guess) ){  //guess isnt in key)
 
-            console.log("user guessed: " + userGuess);
+    ruleReminder.textContent = "That wasn't a letter...";
 
-            if (lives < 0) {
-                console.log("lives less than 0")
-                
-            } else if (! answerKey.includes(userGuess)) { //verifies and checks to see if users' guess is valid.
+    console.log(guess+ " is not a letter");
+  }else if (wrongGuess.includes(guess)) { //guess has already been made
 
-                console.log("guess provided isnt a possible answer");
+    ruleReminder.textContent = "You already guessed that...";
 
-                document.getElementById("gameWarning").style.visibility = "visible";
+    console.log("you arleady guessed that");
+  }else if (guess===answerKey[answer]) {//guess is correct
 
-            } else if (wrongGuess.includes(userGuess)) { //checks to see if user already submitted that letter this round
+    console.log("guess was right");
+    wins++;
 
-                console.log("you already guessed that letter....");
+    newAnswer();
 
-            } else if (userGuess===answerKey[answer]) { //checks to see if guess is incorrect
+  }else{//guess is incorrect
 
-                console.log("you won");
+    console.log("guess was wrong");
+    loses++;
+    lives--;
 
-                wins++;
-                newAnswer();
+    wrongGuess.push(guess);
 
-                //wrongGuess.push(userGuess); //adds incorrect guess to array of guesses this round
+  }
 
-            } else {
+  updateBoard();
+}
 
-                console.log("you lost");
+  function updateBoard() { //changes score, lives, and loses
 
-                loses++;
-                lives--;
+    document.getElementById("livesRemaining").textContent = lives;
+    document.getElementById("userScore").textContent = wins;
+    document.getElementById("userLoses").textContent = loses;
+    document.getElementById("guessHistory").textContent= wrongGuess;
 
-                wrongGuess.push(userGuess); //adds incorrect guess to array of guesses this round
-            }
-                
-            updateBoard();
-            }
+}
+
+function newAnswer() { //gets new random number for the key, clears user input, clears guess histoy.
+
+  answer = Math.floor(Math.random() * answerKey.length);
+  console.log (answerKey[answer]);
+  wrongGuess = [];
+}
