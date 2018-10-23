@@ -15,10 +15,11 @@ newAnswer();
 //waits for user to input a guess
 document.onkeydown = function(event) {
 
-  ruleReminder.textContent = "";
+  ruleReminder.textContent = ""; //resets ruleReminder
   var userGuess = event.key.toUpperCase();
   takeGuess(userGuess);
 }
+
 
 //logic and evaluations for comparing users guess.
 function takeGuess(guess) {
@@ -31,22 +32,17 @@ function takeGuess(guess) {
 
     ruleReminder.textContent = "That wasn't a letter...";
 
-    console.log(guess+ " is not a letter");
   }else if (wrongGuess.includes(guess)) { //guess has already been made
 
     ruleReminder.textContent = "You already guessed that...";
 
-    console.log("you arleady guessed that");
   }else if (guess===answerKey[answer]) {//guess is correct
 
-    console.log("guess was right");
     wins++;
-
     newAnswer();
 
   }else{//guess is incorrect
 
-    console.log("guess was wrong");
     loses++;
     lives--;
 
@@ -68,7 +64,7 @@ function takeGuess(guess) {
 
 function newAnswer() { //gets new random number for the key, clears user input, clears guess histoy.
 
-  answer = Math.floor(Math.random() * answerKey.length);
-  console.log (answerKey[answer]);
-  wrongGuess = [];
+  answer = Math.floor(Math.random() * answerKey.length); //generates a new number for the computers guess.
+
+  wrongGuess = []; //blanks wrongGuess array
 }
