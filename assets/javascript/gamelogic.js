@@ -5,51 +5,65 @@
         var lives = 9;
         var userGuess = "";
         var answerKey = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+        var wrongGuess= [];
         var answer = "";
 
         newAnswer();
         updateBoard();
 
-        function newAnswer() {
+        function newAnswer() { //gets new random number for the key, clears user input, clears guess histoy.
+
             answer = Math.floor(Math.random() * answerKey.length);
+            console.log (answerKey[answer]);
+            userGuess = document.getElementById("userGuess").value
+            wrongGuess = [];
         }
 
-        function updateBoard() {
+        function updateBoard() { //changes score, lives, and loses
 
             document.getElementById("livesRemaining").innerHTML = "Lives: "+lives;
             document.getElementById("userScore").innerHTML = "Wins: "+wins;
             document.getElementById("userLoses").innerHTML= "Loses: "+loses;
 
-            console.log (answerKey[answer]);
         }
 
         function takeGuess() {
 
             userGuess = document.getElementById("userGuess").value.toUpperCase().trim();
 
-            console.log(userGuess);
+            console.log("user guessed: " + userGuess);
 
-            if (lives>0) {
+            if (lives < 0) {
+                console.log("lives less than 0")
                 
-                if (answerKey.includes(userGuess)) { //verifies and checks to see if users' guess is valid.
+            } else if (! answerKey.includes(userGuess)) { //verifies and checks to see if users' guess is valid.
 
-                    document.getElementById("gameWarning").style.visibility = "hidden";
+                console.log("guess provided isnt a possible answer");
 
-                    if  (userGuess===answerKey[answer]){
+                document.getElementById("gameWarning").style.visibility = "visible";
 
-                        wins++;
-                        newAnswer();
-                    } else {
+            } else if (wrongGuess.includes(userGuess)) { //checks to see if user already submitted that letter this round
 
-                        loses++;
-                        lives--;
-                    } 
-                } else {
+                console.log("you already guessed that letter....");
 
-                    document.getElementById("gameWarning").style.visibility = "visible";
-                }
+            } else if (userGuess===answerKey[answer]) { //checks to see if guess is incorrect
+
+                console.log("you won");
+
+                wins++;
+                newAnswer();
+
+                //wrongGuess.push(userGuess); //adds incorrect guess to array of guesses this round
+
+            } else {
+
+                console.log("you lost");
+
+                loses++;
+                lives--;
+
+                wrongGuess.push(userGuess); //adds incorrect guess to array of guesses this round
+            }
                 
             updateBoard();
             }
-
-        } 

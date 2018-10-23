@@ -1,6 +1,9 @@
 .rules-reminder {
-    visibility: hidden;
     color: red;
     font-size: 70px;
     text-align: center;
+}
+
+.hidden {
+    visibility: hidden;
 }
