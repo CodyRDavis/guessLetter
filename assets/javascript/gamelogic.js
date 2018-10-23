@@ -15,7 +15,7 @@ newAnswer();
 //waits for user to input a guess
 document.onkeydown = function(event) {
 
-  ruleReminder.textContent = ""; //resets ruleReminder
+  ruleReminder.style.visibility = "hidden";
   var userGuess = event.key.toUpperCase();
   takeGuess(userGuess);
 }
@@ -27,21 +27,28 @@ function takeGuess(guess) {
   if (lives <= 0 ) { //user doesnt have any lives
 
     ruleReminder.textContent = "You are out of lives...";
-
-  } else if (!answerKey.includes(guess) ){  //guess isnt in key)
+    ruleReminder.style.visibility = "visible";
+  }
+  
+  else if (!answerKey.includes(guess) ){  //guess isnt in key)
 
     ruleReminder.textContent = "That wasn't a letter...";
-
-  }else if (wrongGuess.includes(guess)) { //guess has already been made
+    ruleReminder.style.visibility = "visible";
+  }
+  
+  else if (wrongGuess.includes(guess)) { //guess has already been made
 
     ruleReminder.textContent = "You already guessed that...";
+    ruleReminder.style.visibility = "visible";
+  }
 
-  }else if (guess===answerKey[answer]) {//guess is correct
+  else if (guess===answerKey[answer]) {//guess is correct
 
     wins++;
     newAnswer();
-
-  }else{//guess is incorrect
+  }
+  
+  else{//guess is incorrect
 
     loses++;
     lives--;
@@ -51,6 +58,11 @@ function takeGuess(guess) {
   }
 
   updateBoard();
+  if (lives <= 0 ) { //user doesnt have any lives
+
+    ruleReminder.textContent = "You are out of lives...";
+    ruleReminder.style.visibility = "visible";
+  }
 }
 
   function updateBoard() { //changes score, lives, and loses
