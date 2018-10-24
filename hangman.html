@@ -19,6 +19,7 @@
   <h1><span id="wordToGuess">Error: Did not receive word</span></h1>
   <h3>Lives: <span id="htmlLives"></span></h3>
   <h3>Letters Guessed: <span id="htmlLettersGuessed"></span></h3>
+  <h3>-<span id="rulesReminder"></span></h3>
 
 
 
@@ -50,7 +51,11 @@
       "CALL OF DUTY",
       "DESTINY",
       "THE LAST OF US",
-      "UNCHARTED"
+      "UNCHARTED",
+      "HEROES OF THE STORM",
+      "HARVEST MOON",
+      "POKEMON",
+      "KINGDOM HEARTS"
     ];
 
     getWord();
@@ -62,30 +67,39 @@
 
       userGuess = event.key.toUpperCase();
       console.log(userGuess);
+      document.getElementById("rulesReminder").textContent = "";
 
 
 
       //Start of Game rule checks
       if(lives <= 0){
-        return;
+
+        if (userGuess == "ENTER"){
+
+          resetBoard();
+          getWord();
+          letterChecker(" ");
+        }
       }
       //Checking to see if User's guess is a letter
       else if (!answerKey.includes(userGuess)){
-        console.log("That wasnt a real guess...");
+
+        document.getElementById("rulesReminder").textContent = "Please enter a letter..."
       } 
       //Checking to see if User's guess has already been played
       else if (lettersTried.includes(userGuess)){
-        console.log("That's already on the board...");
+
+        document.getElementById("rulesReminder").textContent = "That is already on the board..."
       }
       //checking to see if word contains user's guess
       else if (currentWord.includes(userGuess)){
-        console.log ("that letter is in the word!");
+
         letterChecker(userGuess);
         lettersTried.push(userGuess);
       }
       //if users answer was wrong
       else{
-        console.log("that letter is NOT in the word!");
+
         lives--;
         lettersTried.push(userGuess);
       }
@@ -109,18 +123,16 @@
           lettersCorrect++;
         }
       }
-      console.log(revealed);
     }
     
     function getWord (){
+      
       var key = Math.floor(Math.random() * words.length);
       currentWord = words[key].split("");
-      console.log(currentWord);
 
       currentWord.forEach(function(letter){
         revealed.push("-");
       });
-      console.log(revealed);
     }
 
     function updateBoard(){
@@ -135,14 +147,24 @@
 
     }
 
+    function resetBoard(){
+      lives = 9;
+      lettersCorrect = 0;
+      lettersTried = [];
+      currentWord = [];
+      revealed = [];
+    }
+
     function isGameOver(){
   
       if (lettersCorrect == currentWord.length){
+        document.getElementById("rulesReminder").textContent = "You win! press 'ENTER' to play again..."
         console.log("you Win");
         lives = 0;
       }
 
       else if (lives == 0){
+        document.getElementById("rulesReminder").textContent = "You lost! press 'ENTER' to play again..."
         console.log("Game Over");
 
       }
