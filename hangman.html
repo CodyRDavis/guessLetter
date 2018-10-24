@@ -35,7 +35,22 @@
       "LEGEND OF ZELDA",
       "SUPER MARIO",
       "HALO",
-      "GOD OF WAR"
+      "GOD OF WAR",
+      "SPIDERMAN",
+      "DUCK HUNT",
+      "NEVER WINTER NIGHTS",
+      "PATHFINDER",
+      "DUNGEONS AND DRAGONS",
+      "INFAMOUS",
+      "BANJO KAZOOIE",
+      "CRASH BANDICOOT",
+      "SPYRO",
+      "KILLZONE",
+      "TONY HAWK PRO SKATER",
+      "CALL OF DUTY",
+      "DESTINY",
+      "THE LAST OF US",
+      "UNCHARTED"
     ];
 
     getWord();
@@ -66,14 +81,15 @@
       else if (currentWord.includes(userGuess)){
         console.log ("that letter is in the word!");
         letterChecker(userGuess);
+        lettersTried.push(userGuess);
       }
       //if users answer was wrong
       else{
         console.log("that letter is NOT in the word!");
         lives--;
+        lettersTried.push(userGuess);
       }
 
-      lettersTried.push(userGuess);
       updateBoard();
       isGameOver();
     }
