@@ -16,6 +16,11 @@
   <h1>HANG MAN</h1>
   <h2>Guess the Game, one letter at a time.</h2>
 
+  <h1><span id="wordToGuess">Error: Did not receive word</span></h1>
+  <h3>Lives: <span id="htmlLives"></span></h3>
+  <h3>Letters Guessed: <span id="htmlLettersGuessed"></span></h3>
+
+
 
 
 
@@ -35,6 +40,7 @@
 
     getWord();
     letterChecker(" ");
+    updateBoard();
     
 
     document.onkeydown = function(event) {
@@ -68,6 +74,7 @@
       }
 
       lettersTried.push(userGuess);
+      updateBoard();
       isGameOver();
     }
     
@@ -102,7 +109,13 @@
 
     function updateBoard(){
       //update the board with current values of the variables
-      document.getElementById("livesRemaining").textContent = lives;
+      document.getElementById("htmlLives").textContent = lives;
+      document.getElementById("htmlLettersGuessed").textContent = lettersTried;
+      document.getElementById("wordToGuess").textContent = "";
+      for( var i = 0; i<revealed.length; i++){
+        document.getElementById("wordToGuess").textContent += revealed[i];
+      }
+
 
     }
 

@@ -42,7 +42,7 @@ function takeGuess(guess) {
     ruleReminder.style.visibility = "visible";
   }
 
-  else if (guess===answerKey[answer]) {//guess is correct
+  else if (guess===answerKey[answer]) { //guess is correct
 
     wins++;
     newAnswer();
