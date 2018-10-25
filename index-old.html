@@ -1,46 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css">
 
-    <title>Guess the Letter</title>
-
-</head>
-
+<!-- Below is the code used in my physcic game. no longer used.-->
 
 <body>
     <!--Nav Bar --------------------------------------------------------------------------------------------------------------------------->
-    <!-- no longer in use -->
+    <nav class="navbar navbar-light bg-light justify-content-center">
+        <a class="navbar-brand" href="#">Letter Guess</a>
+        <a class="navbar-brand" href="hangman.html">Hangman</a>
+    </nav><!-- end nav-->
 
     <!--Letter Guess Page Content------------------------------------------------------------------------------------------------------------------------>
     <div class="container bgc-main text-main">
         <div class="row"><!-- Start of row-->
             <div class="col-md-12">
                 <div class="text-center">
-                    <h1>HANGMAN</h1>
-                    <h3>figure out which Video Game I thought of</h3>
+                    <h1>Welcome to GUESS THAT LETTER</h1>
+                    <h3>Try and guess which letter of the alphabet the computer thought of</h3>
                     <hr>
                 </div>
             </div>
         </div><!-- End of row-->
         <div class="row"><!--Start of Row-->
-            <div class="col-md-12 text-center crd-letter-spaced">
-                <h1><span id="wordToGuess">Error: Did not receive word</span></h1><!-- fec by revealed array-->
+            <div class="col-md-6">
+                <h4>Lives: <span id="livesRemaining"></span></h4>
+                <h4>Wins: <span id="userScore"></span>
+                <h4>Loses: <span id="userLoses"></span></h4>
+            </div>
+            <div class="col-md-6">
+                <h4>Guess' so far: <span id="guessHistory"></span></h4>
+                
             </div>
         </div><!-- End of Row-->
         <div class="row">
             <div class="col-md-12">
-                <h3>Letters Guessed: <span id="htmlLettersGuessed"></span></h3>
-                <h3>Lives: <span id="htmlLives"></span></h3>
-                <h3><span id="rulesReminder"></span></h3>
+                <h1 class="rules-reminder"><span id="gameWarning">none</span></h1>  
             </div>
-        </div><!-- End of Row-->
+        </div>
         
     </div><!--End of Container-->
 
@@ -48,9 +43,8 @@
 
 
 
-    <script type="text/javascript" src="assets/javascript/game.js"></script>
+    <script type="text/javascript" src="assets/javascript/gamelogic.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
-</html>

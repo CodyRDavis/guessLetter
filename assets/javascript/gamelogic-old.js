@@ -1,72 +1,85 @@
+//Code Below was the Javascript logic to run the letter guessing game. this has been replaced with the hangman game.
 
-        //initilizing game variables
-        var wins = 0;
-        var loses = 0;
-        var lives = 9;
-        var userGuess = "";
-        var answerKey = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-        var wrongGuess= [];
-        var answer = "";
 
-        newAnswer();
-        updateBoard();
+var wins = 0;
+var loses = 0;
+var lives = 9;
+var answerKey = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+var wrongGuess= [];
+var answer = "0";
 
-        document.onKeydown = function(event) {
-            console.log(event.key);
-            takeGuess(event.key);
-        }
+var ruleReminder = document.getElementById("gameWarning");
 
-        function newAnswer() { //gets new random number for the key, clears user input, clears guess histoy.
 
-            answer = Math.floor(Math.random() * answerKey.length);
-            console.log (answerKey[answer]);
-            userGuess = document.getElementById("userGuess").value
-            wrongGuess = [];
-        }
+//code that runs on load
+updateBoard();
+newAnswer();
 
-        function updateBoard() { //changes score, lives, and loses
+//waits for user to input a guess
+document.onkeydown = function(event) {
 
-            document.getElementById("livesRemaining").innerHTML = "Lives: "+lives;
-            document.getElementById("userScore").innerHTML = "Wins: "+wins;
-            document.getElementById("userLoses").innerHTML= "Loses: "+loses;
+  ruleReminder.style.visibility = "hidden";
+  var userGuess = event.key.toUpperCase();
+  takeGuess(userGuess);
+}
 
-        }
 
-        function takeGuess(guess) {
+//logic and evaluations for comparing users guess.
+function takeGuess(guess) {
 
-            console.log("user guessed: " + guess);
+  if (lives <= 0 ) { //user doesnt have any lives
 
-            if (lives < 0) {
-                console.log("lives less than 0")
-                
-            } else if (! answerKey.includes(guess)) { //verifies and checks to see if users' guess is valid.
+    ruleReminder.textContent = "You are out of lives...";
+    ruleReminder.style.visibility = "visible";
+  }
+  
+  else if (!answerKey.includes(guess) ){  //guess isnt in key)
 
-                console.log("guess provided isnt a possible answer");
+    ruleReminder.textContent = "That wasn't a letter...";
+    ruleReminder.style.visibility = "visible";
+  }
+  
+  else if (wrongGuess.includes(guess)) { //guess has already been made
 
-                document.getElementById("gameWarning").style.visibility = "visible";
+    ruleReminder.textContent = "You already guessed that...";
+    ruleReminder.style.visibility = "visible";
+  }
 
-            } else if (wrongGuess.includes(guess)) { //checks to see if user already submitted that letter this round
+  else if (guess===answerKey[answer]) { //guess is correct
 
-                console.log("you already guessed that letter....");
+    wins++;
+    newAnswer();
+  }
+  
+  else{//guess is incorrect
 
-            } else if (guess===answerKey[answer]) { //checks to see if guess is incorrect
+    loses++;
+    lives--;
 
-                console.log("you won");
+    wrongGuess.push(guess);
 
-                wins++;
-                newAnswer();
+  }
 
-                //wrongGuess.push(userGuess); //adds incorrect guess to array of guesses this round
+  updateBoard();
+  if (lives <= 0 ) { //user doesnt have any lives
 
-            } else {
+    ruleReminder.textContent = "You are out of lives...";
+    ruleReminder.style.visibility = "visible";
+  }
+}
 
-                console.log("you lost");
+  function updateBoard() { //changes score, lives, and loses
 
-                loses++;
-                lives--;
+    document.getElementById("livesRemaining").textContent = lives;
+    document.getElementById("userScore").textContent = wins;
+    document.getElementById("userLoses").textContent = loses;
+    document.getElementById("guessHistory").textContent= wrongGuess;
 
-                wrongGuess.push(userGuess); //adds incorrect guess to array of guesses this round
-            }
-                
-            updateBoard();
-            }
+}
+
+function newAnswer() { //gets new random number for the key, clears user input, clears guess histoy.
+
+  answer = Math.floor(Math.random() * answerKey.length); //generates a new number for the computers guess.
+
+  wrongGuess = []; //blanks wrongGuess array
+}
